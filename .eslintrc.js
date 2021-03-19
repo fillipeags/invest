@@ -12,5 +12,10 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
+    'class-methods-use-this': 'off',
+    'consistent-return': 'off',
+    camelcase: 'off',
+    allowIndentationTabs: true,
+    'no-unused-vars': ['error', { argsIgnorePattern: 'next' }],
   },
 };
