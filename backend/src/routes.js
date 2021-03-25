@@ -2,15 +2,8 @@ const { Router } = require('express');
 
 const BrokerController = require('./app/controllers/BrokerController');
 const StockController = require('./app/controllers/StockController');
-const UserController = require('./app/controllers/UserController');
 
 const router = Router();
-
-router.get('/users', UserController.index);
-router.get('/users/:id', UserController.show);
-router.post('/users', UserController.store);
-router.put('/users/:id', UserController.update);
-router.delete('/users/:id', UserController.delete);
 
 router.get('/brokers', BrokerController.index);
 router.get('/brokers/:id', BrokerController.show);

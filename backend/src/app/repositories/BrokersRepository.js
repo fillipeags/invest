@@ -1,59 +1,52 @@
-let brokers = [
-  {
-    id: '63579670000124',
-    name: 'Rico Investimentos',
-  },
-
-  {
-    id: '23031421000185',
-    name: 'Easynvest',
-  },
-];
+const db = require('../../database');
 
 class BrokersRepository {
-  findAll() {
-    return new Promise((resolve) => resolve(brokers));
+  async findAll(orderBy = 'ASC') {
+    const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+    const rows = await db.query(`SELECT * FROM brokers ORDER BY name ${direction}`);
+    return rows;
   }
 
-  findById(id) {
-    return new Promise((resolve) => resolve(
-      brokers.find((broker) => broker.id === id),
-    ));
+  async findById(id) {
+    const [row] = await db.query('SELECT * FROM brokers WHERE id = $1', [id]);
+    return row;
   }
 
-  create({
-    name, id,
+  async findByEmail(email) {
+    const [row] = await db.query('SELECT * FROM brokers WHERE email = $1', [email]);
+    return row;
+  }
+
+  async create({
+    id, name,
   }) {
-    return new Promise((resolve) => {
-      const newBroker = {
-        id,
-        name,
-      };
-      brokers.push(newBroker);
-      resolve(newBroker);
-    });
+    const [row] = await db.query(`
+      INSERT INTO brokers(id, name)
+      VALUES($1,$2)
+      RETURNING *
+    `, [id, name]);
+
+    return row;
   }
 
-  update(id, { name }) {
-    return new Promise((resolve) => {
-      const updatedBroker = {
-        id, name,
-      };
+  async update(id, { name }) {
+    const [row] = await db.query(`
+      UPDATE brokers
+      SET name = $1
+      WHERE id = $2
+      RETURNING *
+    `, [name, id]);
 
-      brokers = brokers.map((broker) => (
-        broker.id === id ? updatedBroker : broker
-      ));
-
-      resolve(updatedBroker);
-    });
+    return row;
   }
 
-  delete(id) {
-    return new Promise((resolve) => {
-      brokers = brokers.filter((broker) => broker.id !== id);
+  async delete(id) {
+    const deleteOp = await db.query(`
+      DELETE FROM brokers
+      WHERE id = $1
+    `, [id]);
 
-      resolve();
-    });
+    return deleteOp;
   }
 }
 

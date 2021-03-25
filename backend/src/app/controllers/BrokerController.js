@@ -2,7 +2,9 @@ const BrokersRepository = require('../repositories/BrokersRepository');
 
 class BrokerController {
   async index(request, response) {
-    const brokers = await BrokersRepository.findAll();
+    const { orderBy } = request.query;
+
+    const brokers = await BrokersRepository.findAll(orderBy);
 
     response.json(brokers);
   }
@@ -33,7 +35,7 @@ class BrokerController {
     }
 
     const broker = await BrokersRepository.create({
-      name,
+      id, name,
     });
 
     response.json(broker);
@@ -67,12 +69,6 @@ class BrokerController {
 
   async delete(request, response) {
     const { id } = request.params;
-
-    const broker = await BrokersRepository.findById(id);
-
-    if (!broker) {
-      return response.status(404).json({ error: 'Broker not found' });
-    }
 
     await BrokersRepository.delete(id);
 
