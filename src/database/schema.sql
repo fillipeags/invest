@@ -17,13 +17,15 @@ CREATE TABLE IF NOT EXISTS stocks(
 
 CREATE TABLE IF NOT EXISTS transactions (
 	id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
-	type VARCHAR NOT NULL,
+	type VARCHAR NOT NULL CHECK(type IN('buy', 'sell')),
+	data DATE NOT NULL,
 	price DECIMAL NOT NULL,
-	data DECIMAL NOT NULL,
-	quantity DECIMAL NOT NULL,
+	quantity INTEGER NOT NULL,
 	broker VARCHAR NOT NULL,
 	id_stock DECIMAL,
+	PRIMARY KEY (id),
 	FOREIGN KEY(id_stock) REFERENCES stocks(id),
 	id_broker DECIMAL,
 	FOREIGN KEY(id_broker) REFERENCES brokers(id)
+	ON DELETE CASCADE ON UPDATE CASCADE
 );
