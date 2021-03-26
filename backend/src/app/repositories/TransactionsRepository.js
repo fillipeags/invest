@@ -55,7 +55,27 @@ class TransactionsRepository {
     });
   }
 
-  update() {}
+  update(id, {
+    type, price, quantity, id_broker, id_company,
+  }) {
+    return new Promise((resolve) => {
+      const updatedTransaction = {
+        id,
+        type,
+        date: today,
+        price,
+        quantity,
+        id_broker,
+        id_company,
+      };
+
+      transactions = transactions.map((transaction) => (
+        transaction.id === id ? updatedTransaction : transaction
+      ));
+
+      resolve(updatedTransaction);
+    });
+  }
 
   delete(id) {
     return new Promise((resolve) => {

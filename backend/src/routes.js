@@ -21,6 +21,7 @@ router.delete('/companies/:id', CompanyController.delete);
 router.get('/transactions', TransactionController.index);
 router.get('/transactions/:id', TransactionController.show);
 router.post('/transactions', TransactionController.store);
+router.put('/transactions/:id', TransactionController.update);
 router.delete('/transactions/:id', TransactionController.delete);
 
 module.exports = router;
