@@ -2,6 +2,7 @@ const { Router } = require('express');
 
 const BrokerController = require('./app/controllers/BrokerController');
 const CompanyController = require('./app/controllers/CompanyController');
+const TransactionController = require('./app/controllers/TransactionController');
 
 const router = Router();
 
@@ -16,5 +17,10 @@ router.get('/companies/:id', CompanyController.show);
 router.post('/companies', CompanyController.store);
 router.put('/companies/:id', CompanyController.update);
 router.delete('/companies/:id', CompanyController.delete);
+
+router.get('/transactions', TransactionController.index);
+router.get('/transactions/:id', TransactionController.show);
+router.post('/transactions', TransactionController.store);
+router.delete('/transactions/:id', TransactionController.delete);
 
 module.exports = router;
