@@ -3,29 +3,29 @@ CREATE DATABASE invest;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE IF NOT EXISTS brokers(
-	id DECIMAL NOT NULL UNIQUE,
+	id VARCHAR NOT NULL UNIQUE,
 	name VARCHAR NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS stocks(
-	id DECIMAL NOT NULL UNIQUE,
+CREATE TABLE IF NOT EXISTS companies(
+	id VARCHAR NOT NULL UNIQUE,
 	name VARCHAR NOT NULL,
 	field VARCHAR NOT NULL,
-	average_price DECIMAL,
-	total DECIMAL
+	stock_average_price DECIMAL DEFAULT 0,
+	total_stocks INTEGER DEFAULT 0,
+	PRIMARY KEY (id)
 );
 
 CREATE TABLE IF NOT EXISTS transactions (
 	id UUID NOT NULL UNIQUE DEFAULT uuid_generate_v4(),
 	type VARCHAR NOT NULL CHECK(type IN('buy', 'sell')),
-	data DATE NOT NULL,
+	date DATE NOT NULL,
 	price DECIMAL NOT NULL,
 	quantity INTEGER NOT NULL,
-	broker VARCHAR NOT NULL,
-	id_stock DECIMAL,
+	id_companies VARCHAR,
+	id_broker VARCHAR,
 	PRIMARY KEY (id),
-	FOREIGN KEY(id_stock) REFERENCES stocks(id),
-	id_broker DECIMAL,
+	FOREIGN KEY(id_companies) REFERENCES companies(id),
 	FOREIGN KEY(id_broker) REFERENCES brokers(id)
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
