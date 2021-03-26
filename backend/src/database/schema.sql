@@ -22,10 +22,10 @@ CREATE TABLE IF NOT EXISTS transactions (
 	date DATE NOT NULL,
 	price DECIMAL NOT NULL,
 	quantity INTEGER NOT NULL,
-	id_companies VARCHAR,
+	id_company VARCHAR,
 	id_broker VARCHAR,
 	PRIMARY KEY (id),
-	FOREIGN KEY(id_companies) REFERENCES companies(id),
+	FOREIGN KEY(id_company) REFERENCES companies(id),
 	FOREIGN KEY(id_broker) REFERENCES brokers(id)
 	ON DELETE CASCADE ON UPDATE CASCADE
 );

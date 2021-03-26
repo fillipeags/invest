@@ -7,6 +7,8 @@ const transactions = [
     date: Date.now(),
     price: 10.5,
     quantity: 10,
+    id_broker: '44645092000132',
+    id_company: 'PETR4',
   },
 
   {
@@ -15,6 +17,8 @@ const transactions = [
     date: Date.now(),
     price: 40.5,
     quantity: 20,
+    id_broker: '44645092000132',
+    id_company: 'PETR4',
   },
 ];
 

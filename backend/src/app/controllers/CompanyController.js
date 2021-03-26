@@ -53,7 +53,7 @@ class CompanyController {
     const { id } = request.params;
 
     const {
-      name, field, average_price, total,
+      name, field, stock_average_price, total_stocks,
     } = request.body;
 
     const companyExists = await CompaniesRepository.findById(id);
@@ -63,7 +63,7 @@ class CompanyController {
     }
 
     const company = await CompaniesRepository.update(id, {
-      name, field, average_price, total,
+      name, field, stock_average_price, total_stocks,
     });
 
     response.json(company);
