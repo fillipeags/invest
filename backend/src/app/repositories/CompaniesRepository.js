@@ -1,71 +1,49 @@
-let companies = [
-  {
-    id: 'PETR4',
-    name: 'Petrobras',
-    field: 'Offshore',
-    average_price: '10.24',
-    total: '112',
-  },
-
-  {
-    id: 'APPL3',
-    name: 'Apple',
-    field: 'Tech',
-    average_price: '10.24',
-    total: '112',
-  },
-];
+const db = require('../../database');
 
 class CompaniesRepository {
-  findAll() {
-    return new Promise((resolve) => resolve(companies));
+  async findAll(orderBy = 'ASC') {
+    const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+    const rows = await db.query(`SELECT * FROM companies ORDER BY name ${direction}`);
+    return rows;
   }
 
-  findById(id) {
-    return new Promise((resolve) => resolve(
-      companies.find((company) => company.id === id),
-    ));
+  async findById(id) {
+    const [row] = await db.query('SELECT * FROM companies WHERE id = $1', [id]);
+    return row;
   }
 
-  create({
-    id, name, field, average_price, total,
+  async create({
+    id, name, field, stock_average_price, total_stocks,
   }) {
-    return new Promise((resolve) => {
-      const newCompany = {
-        id,
-        name,
-        field,
-        average_price,
-        total,
-      };
+    const [row] = await db.query(`
+      INSERT INTO companies (id, name, field, stock_average_price, total_stocks)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
+    `, [id, name, field, stock_average_price, total_stocks]);
 
-      companies.push(newCompany);
-      resolve(companies);
-    });
+    return row;
   }
 
-  update(id, {
-    name, field, average_price, total,
+  async update(id, {
+    name, field, stock_average_price, total_stocks,
   }) {
-    return new Promise((resolve) => {
-      const updatedCompany = {
-        id, name, field, average_price, total,
-      };
+    const [row] = await db.query(`
+      UPDATE companies
+      SET name = $1, field = $2, stock_average_price = $3, total_stocks = $4
+      WHERE id = $5
+      RETURNING *
+    `, [name, field, stock_average_price, total_stocks, id]);
 
-      companies = companies.map((company) => (
-        company.id === id ? updatedCompany : company
-      ));
-
-      resolve(updatedCompany);
-    });
+    return row;
   }
 
-  delete(id) {
-    return new Promise((resolve) => {
-      companies = companies.filter((company) => company.id !== id);
+  async delete(id) {
+    const deleteOp = await db.query(`
+      DELETE FROM companies
+      WHERE id = $1
+    `, [id]);
 
-      resolve();
-    });
+    return deleteOp;
   }
 }
 

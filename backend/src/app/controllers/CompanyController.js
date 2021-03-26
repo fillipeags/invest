@@ -21,7 +21,7 @@ class CompanyController {
 
   async store(request, response) {
     const {
-      id, name, field, average_price, total,
+      id, name, field, stock_average_price, total_stocks,
     } = request.body;
 
     if (!name) {
@@ -33,7 +33,7 @@ class CompanyController {
     }
 
     if (!field) {
-      return response.status(400).json({ error: 'Field not provided' });
+      return response.status(400).json({ error: 'Field is required' });
     }
 
     const companyExists = await CompaniesRepository.findById(id);
@@ -43,7 +43,7 @@ class CompanyController {
     }
 
     const company = await CompaniesRepository.create({
-      id, name, field, average_price, total,
+      id, name, field, stock_average_price, total_stocks,
     });
 
     response.json(company);
