@@ -1,4 +1,5 @@
 const { v4 } = require('uuid');
+const db = require('../../database');
 
 const today = new Date().toISOString().slice(0, 10);
 
@@ -36,23 +37,17 @@ class TransactionsRepository {
     ));
   }
 
-  create({
+  async create({
     type, price, quantity, id_broker, id_company,
   }) {
-    return new Promise((resolve) => {
-      const newTransaction = {
-        id: v4(),
-        type,
-        date: today,
-        price,
-        quantity,
-        id_broker,
-        id_company,
-      };
+    const [row] = await db.query(`
+      INSERT INTO transactions (type, price , quantity, id_broker, id_company)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING *
 
-      transactions.push(newTransaction);
-      resolve(transactions);
-    });
+    `, [type, price, quantity, id_broker, id_company]);
+
+    return row;
   }
 
   update(id, {
