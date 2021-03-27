@@ -1,0 +1,12 @@
+body {
+	box-sizing: border-box;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: white;
+}
+
+li {
+	font-size: 5rem;
+	color: white;
+}
