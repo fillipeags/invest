@@ -53,7 +53,7 @@ class TransactionController {
   async update(request, response) {
     const { id } = request.params;
     const {
-      type, price, quantity, id_broker, id_company,
+      type, price, quantity,
     } = request.body;
 
     const transactionExists = await TransactionsRepository.findById(id);
@@ -73,16 +73,8 @@ class TransactionController {
       return response.status(404).json({ error: 'Quantity is required' });
     }
 
-    if (!id_broker) {
-      return response.status(404).json({ error: 'Broker is required' });
-    }
-
-    if (!id_company) {
-      return response.status(404).json({ error: 'Company is required' });
-    }
-
     const transaction = await TransactionsRepository.update(id, {
-      type, price, quantity, id_broker, id_company,
+      type, price, quantity,
     });
 
     response.json(transaction);

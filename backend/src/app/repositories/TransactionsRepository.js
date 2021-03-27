@@ -1,40 +1,15 @@
-const { v4 } = require('uuid');
 const db = require('../../database');
 
-const today = new Date().toISOString().slice(0, 10);
-
-let transactions = [
-  {
-    id: v4(),
-    type: 'buy',
-    date: today,
-    price: 10.5,
-    quantity: 10,
-    id_broker: '44645092000132',
-    id_company: 'PETR4',
-  },
-
-  {
-    id: v4(),
-    type: 'sell',
-    date: today,
-    price: 40.5,
-    quantity: 20,
-    id_broker: '44645092000132',
-    id_company: 'PETR4',
-  },
-
-];
-
 class TransactionsRepository {
-  findAll() {
-    return new Promise((resolve) => resolve(transactions));
+  async findAll(orderBy = 'ASC') {
+    const direction = orderBy.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+    const rows = await db.query(`SELECT * FROM transactions ORDER BY date ${direction}`);
+    return rows;
   }
 
-  findById(id) {
-    return new Promise((resolve) => resolve(
-      transactions.find((transaction) => transaction.id === id),
-    ));
+  async findById(id) {
+    const [row] = await db.query('SELECT * FROM transactions WHERE id = $1', [id]);
+    return row;
   }
 
   async create({
@@ -50,33 +25,26 @@ class TransactionsRepository {
     return row;
   }
 
-  update(id, {
-    type, price, quantity, id_broker, id_company,
+  async update(id, {
+    type, price, quantity,
   }) {
-    return new Promise((resolve) => {
-      const updatedTransaction = {
-        id,
-        type,
-        date: today,
-        price,
-        quantity,
-        id_broker,
-        id_company,
-      };
+    const [row] = await db.query(`
+      UPDATE transactions
+      SET type = $1, price = $2, quantity = $3
+      WHERE id = $4
+      RETURNING *
+    `, [type, price, quantity, id]);
 
-      transactions = transactions.map((transaction) => (
-        transaction.id === id ? updatedTransaction : transaction
-      ));
-
-      resolve(updatedTransaction);
-    });
+    return row;
   }
 
-  delete(id) {
-    return new Promise((resolve) => {
-      transactions = transactions.filter((transaction) => transaction.id !== id);
-      resolve();
-    });
+  async delete(id) {
+    const deleteOp = await db.query(`
+      DELETE FROM transactions
+      WHERE id = $1
+    `, [id]);
+
+    return deleteOp;
   }
 }
 
