@@ -13,13 +13,13 @@ class CompaniesRepository {
   }
 
   async create({
-    id, name, field, stock_average_price, total_stocks,
+    id, name, field,
   }) {
     const [row] = await db.query(`
-      INSERT INTO companies (id, name, field, stock_average_price, total_stocks)
-      VALUES ($1, $2, $3, $4, $5)
+      INSERT INTO companies (id, name, field)
+      VALUES ($1, $2, $3)
       RETURNING *
-    `, [id, name, field, stock_average_price, total_stocks]);
+    `, [id, name, field]);
 
     return row;
   }

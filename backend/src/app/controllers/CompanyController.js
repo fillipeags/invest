@@ -21,7 +21,7 @@ class CompanyController {
 
   async store(request, response) {
     const {
-      id, name, field, stock_average_price, total_stocks,
+      id, name, field,
     } = request.body;
 
     if (!name) {
@@ -43,7 +43,7 @@ class CompanyController {
     }
 
     const company = await CompaniesRepository.create({
-      id, name, field, stock_average_price, total_stocks,
+      id, name, field,
     });
 
     response.json(company);

@@ -30,43 +30,25 @@ CREATE TABLE IF NOT EXISTS transactions (
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-CREATE FUNCTION conta_total(id VARCHAR)
-RETURNS INTEGER READS SQL DATA
-BEGIN
-    DECLARE qtd INTEGER;
-    SELECT SUM(quantity) INTO qtd
-    FROM TRANSACTIONS
-    WHERE id_company = id;
-    RETURN coalesce(qtd, 0);
-END$
 
-CREATE FUNCTION update_total_stocks()
-RETURNS TRIGGER AS $$
+CREATE OR REPLACE FUNCTION update_total_stocks()
+RETURNS trigger
+AS $$
+	DECLARE qtd integer;
 BEGIN
-	DECLARE total_stocks_transactions INTEGER;
-	SELECT conta_total(NEW.id_company) INTO total_stocks_transactions;
-	IF (NEW.type = 'Buy') THEN
-		UPDATE COMPANIES
-		SET
-		stock_average_price = ROUND(((stock_average_price * total_stocks_transactions) + (NEW.price * NEW.quantity)) / (total_stocks_transactions + NEW.quantity), 2),
-		total_stocks = total_stocks + NEW.quantity
+	SELECT total_stocks FROM companies
+	WHERE id = NEW.id_company INTO qtd;
+
+	UPDATE companies SET total_stocks = total_stocks + 5
 		WHERE id = NEW.id_company;
-	ELSE
-		UPDATE COMPANIES
-		stock_average_price = ROUND(((stock_average_price * total_stocks_transactions) + (NEW.price * NEW.quantity)) / (total_stocks_transactions + NEW.quantity), 2),
-		total_stocks = total_stocks - NEW.quantity
-		WHERE id = NEW.id_company
+	RETURN NEW;
 END;
-$$LANGUAGE plpgsql;
-
+$$ LANGUAGE plpgsql;
 
 CREATE TRIGGER check_total_stocks
-BEFORE INSERT OR UPDATE
-ON TRANSACTION
+BEFORE INSERT ON transactions
 FOR EACH ROW
-EXECUTE PROCEDURE update_total_stocks()
-
-
+EXECUTE PROCEDURE update_total_stocks();
 
 
 DROP FUNCTION IF EXISTS update_total_stocks();
