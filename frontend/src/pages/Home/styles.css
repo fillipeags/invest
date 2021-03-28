@@ -6,7 +6,56 @@ body {
 	background-color: white;
 }
 
-li {
-	font-size: 5rem;
+.container {
+	background-color: white;
+	box-shadow: 7px 8px 16px -2px rgba(235, 235, 235, 1);
+	margin: 20px 20px;
+	padding: 24px 24px;
+	border-radius: 10px;
+	width: 100%;
+}
+
+table > thead > tr {
+	background-color: black;
 	color: white;
+}
+
+table > tbody td {
+	padding: 10px 0px 0px 20px;
+	width: 100%;
+	text-align: center;
+}
+
+table > tbody td:last-child {
+	padding: 10px 0px 0px 10px;
+}
+
+.btn-primary {
+	margin-top: 20px;
+	width: 100%;
+	height: 30px;
+	background-color: #ff3251;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	font-size: 20px;
+	cursor: pointer;
+}
+
+.btn-secondary {
+	width: 100%;
+	height: 30px;
+	background-color: #ff3251;
+	color: white;
+	border-radius: 5px;
+	border: none;
+	font-size: 15px;
+	cursor: pointer;
+}
+
+.addBroker {
+	padding-bottom: 10px;
+	padding-right: 20px;
+	border-radius: 5px;
+	width: 100%;
 }
