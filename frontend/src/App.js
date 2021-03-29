@@ -1,9 +1,13 @@
-import Home from './pages/Home';
+import Brokers from './components/Brokers';
+import Companies from './components/Companies';
+import Transactions from './components/Transactions';
 
 export function App() {
   return (
 		<>
-			<Home/>
+			<Brokers/>
+			<Companies/>
+			<Transactions/>
 		</>
   );
 }

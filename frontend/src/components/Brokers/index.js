@@ -1,15 +1,25 @@
 import React, { useEffect, useState } from 'react';
+import { FiTrash } from "react-icons/fi";
 import api from '../../services/api';
-import './styles.css'
+import '../../styles.css'
 
-function Home(){
+function Brokers(){
 
 	const [brokers, setBrokers] = useState([])
-
 
 	useEffect(() => {
 		api.get('/brokers').then(response => setBrokers(response.data))
 	}, [])
+
+	// useEffect(() => {
+  //   api.post('/brokers')
+  //       .then(response => setBrokers(response.data));
+	// }, []);
+
+
+	const handleDelete = (id) => {
+		api.delete(`brokers/${id}`).then(setBrokers(brokers.filter(broker => broker.id !== id)))
+	}
 
 	return (
 		<div className="container">
@@ -28,13 +38,13 @@ function Home(){
 							<td>{broker.id}</td>
 							<td>{broker.name}</td>
 							<td>
-								<button className="btn-secondary" >Deletar</button>
+								<button className="btn" onClick={() => handleDelete(broker.id)}><FiTrash/></button>
 							</td>
 						</tr>
 					))}
 				</tbody>
 			</table>
-
+{/*
 
 			<br/>
 
@@ -46,11 +56,11 @@ function Home(){
 						<td><button className="btn-secondary">Adicionar</button></td>
 					</tr>
 				</tbody>
-			</table>
+			</table> */}
 
 
 		</div>
 	)
 }
 
-export default Home;
+export default Brokers;
