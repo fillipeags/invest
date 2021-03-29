@@ -15,6 +15,14 @@ class TransactionsRepository {
   async create({
     type, price, quantity, id_broker, id_company,
   }) {
+    const [total] = await db.query(`
+     SELECT total_stocks FROM companies WHERE id = $1
+    `, [id_company]);
+
+    if (type === 'sell' && total.total_stocks - quantity < 0) {
+      return { error: 'Você não tem açoes suficientes para vender' };
+    }
+
     const [row] = await db.query(`
       INSERT INTO transactions (type, price , quantity, id_broker, id_company)
       VALUES ($1, $2, $3, $4, $5)
