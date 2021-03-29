@@ -15,6 +15,10 @@ function Transactions(){
 		api.get('/transactions').then(response => setTransactions(response.data))
 	}, [])
 
+	const handleDelete = (id) => {
+		api.delete(`transactions/${id}`).then(setTransactions(transactions.filter(transaction => transaction.id !== id)))
+	}
+
 
 	return (
 		<div className="container">
@@ -42,7 +46,7 @@ function Transactions(){
 							<td>{transaction.id_company}</td>
 							<td>{transaction.id_broker}</td>
 							<td>
-								<button className="btn" ><FiTrash/></button>
+								<button className="btn" onClick={() => handleDelete(transaction.id)}><FiTrash/></button>
 							</td>
 						</tr>
 					))}

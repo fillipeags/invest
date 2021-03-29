@@ -11,6 +11,10 @@ function Companies(){
 		api.get('/companies').then(response => setCompanies(response.data))
 	}, [])
 
+	const handleDelete = (id) => {
+		api.delete(`companies/${id}`).then(setCompanies(companies.filter(company => company.id !== id)))
+	}
+
 	return (
 		<div className="container">
 			<table>
@@ -34,7 +38,7 @@ function Companies(){
 							<td>{company.stock_average_price}</td>
 							<td>{company.total_stocks}</td>
 							<td>
-								<button className="btn" ><FiTrash/></button>
+								<button className="btn" onClick={() => handleDelete(company.id)}><FiTrash/></button>
 							</td>
 						</tr>
 					))}

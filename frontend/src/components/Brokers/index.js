@@ -11,12 +11,6 @@ function Brokers(){
 		api.get('/brokers').then(response => setBrokers(response.data))
 	}, [])
 
-	// useEffect(() => {
-  //   api.post('/brokers')
-  //       .then(response => setBrokers(response.data));
-	// }, []);
-
-
 	const handleDelete = (id) => {
 		api.delete(`brokers/${id}`).then(setBrokers(brokers.filter(broker => broker.id !== id)))
 	}
@@ -44,19 +38,19 @@ function Brokers(){
 					))}
 				</tbody>
 			</table>
-{/*
+
 
 			<br/>
 
 			<table className="addBroker">
 				<tbody>
 					<tr>
-						<td><input type="text"/></td>
+						<td><input type="text" /></td>
 						<td><input type="text"/></td>
 						<td><button className="btn-secondary">Adicionar</button></td>
 					</tr>
 				</tbody>
-			</table> */}
+			</table>
 
 
 		</div>
