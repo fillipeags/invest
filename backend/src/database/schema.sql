@@ -49,11 +49,11 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-
 CREATE TRIGGER check_total_stocks
 AFTER INSERT ON TRANSACTIONS
 FOR EACH ROW
 EXECUTE PROCEDURE update_total_stocks();
+
 
 
 DROP FUNCTION IF EXISTS update_total_stocks();
