@@ -34,22 +34,23 @@ CREATE TABLE IF NOT EXISTS transactions (
 CREATE OR REPLACE FUNCTION update_total_stocks()
 RETURNS trigger
 AS $$
-	DECLARE qtd integer;
 BEGIN
-	SELECT total_stocks FROM companies
-	WHERE id = NEW.id_company INTO qtd;
-
-	UPDATE companies SET total_stocks = total_stocks + 5
-		WHERE id = NEW.id_company;
-	RETURN NEW;
+    IF NEW.type = 'Buy' THEN
+        UPDATE companies SET total_stocks = total_stocks - NEW.quantity WHERE id = NEW.id_company;
+    ELSE
+        UPDATE companies SET total_stocks = total_stocks + NEW.quantity WHERE id = NEW.id_company;
+    END IF;
+		RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 
 CREATE TRIGGER check_total_stocks
-BEFORE INSERT ON transactions
+AFTER INSERT ON TRANSACTIONS
 FOR EACH ROW
 EXECUTE PROCEDURE update_total_stocks();
 
 
 DROP FUNCTION IF EXISTS update_total_stocks();
+DROP FUNCTION IF EXISTS total_stocks();
 
+DROP TRIGGER check_total_stocks
