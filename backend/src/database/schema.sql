@@ -30,16 +30,16 @@ CREATE TABLE IF NOT EXISTS transactions (
 	ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-
 CREATE OR REPLACE FUNCTION update_total_stocks()
 RETURNS trigger
 AS $$
 BEGIN
-    IF NEW.type = 'Buy' THEN
-        UPDATE companies SET total_stocks = total_stocks - NEW.quantity WHERE id = NEW.id_company;
-    ELSE
+    IF NEW.type='buy' THEN
         UPDATE companies SET total_stocks = total_stocks + NEW.quantity WHERE id = NEW.id_company;
-    END IF;
+    ELSEIF NEW.type='sell' THEN
+        UPDATE companies SET total_stocks = total_stocks - NEW.quantity WHERE id = NEW.id_company;
+		END IF;
+
 		RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
@@ -51,6 +51,5 @@ EXECUTE PROCEDURE update_total_stocks();
 
 
 DROP FUNCTION IF EXISTS update_total_stocks();
-DROP FUNCTION IF EXISTS total_stocks();
 
-DROP TRIGGER check_total_stocks
+
