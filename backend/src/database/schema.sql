@@ -34,15 +34,21 @@ CREATE OR REPLACE FUNCTION update_total_stocks()
 RETURNS trigger
 AS $$
 BEGIN
-    IF NEW.type='buy' THEN
-        UPDATE companies SET total_stocks = total_stocks + NEW.quantity WHERE id = NEW.id_company;
-    ELSEIF NEW.type='sell' THEN
-        UPDATE companies SET total_stocks = total_stocks - NEW.quantity WHERE id = NEW.id_company;
-		END IF;
+	IF NEW.type='buy' THEN
+			UPDATE companies SET
+			stock_average_price = ROUND(((stock_average_price * total_stocks) + (NEW.price * NEW.quantity)) / (total_stocks + NEW.quantity),2),
+			total_stocks = total_stocks + NEW.quantity
+			WHERE id = NEW.id_company;
+	ELSEIF NEW.type='sell' THEN
+			UPDATE companies SET
+			stock_average_price = ROUND(((stock_average_price * total_stocks) + (NEW.price * NEW.quantity)) / (total_stocks + NEW.quantity),2),
+			total_stocks = total_stocks - NEW.quantity WHERE id = NEW.id_company;
 
-		RETURN NEW;
+	END IF;
+	RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 
 CREATE TRIGGER check_total_stocks
 AFTER INSERT ON TRANSACTIONS
