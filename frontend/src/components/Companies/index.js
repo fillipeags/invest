@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FiTrash } from "react-icons/fi";
 import api from '../../services/api';
-import '../../styles.css'
+import '../Companies/styles.css'
 
 function Companies(){
 
@@ -40,48 +40,50 @@ function Companies(){
 
 	return (
 		<>
-		<div className="container">
-			<h3>EMPRESAS</h3>
-			<table>
-				<thead>
-					<tr>
-						<th>Código</th>
-						<th>Nome</th>
-						<th>Campo</th>
-						<th>Preço Médio</th>
-						<th>Qtd AÇÕES</th>
-						<th>%</th>
-						<th>DELETAR</th>
-					</tr>
-				</thead>
-
-
-				<tbody>
-					{companies.map(company => (
-						<tr key={company.id}>
-							<td>{company.id}</td>
-							<td>{company.name}</td>
-							<td>{company.field}</td>
-							<td>{company.stock_average_price}</td>
-							<td>{company.total_stocks}</td>
-							<td>{(100*(company.total_stocks*company.stock_average_price/total)).toFixed(1)}%</td>
-							<td>
-								<button className="btn" onClick={() => handleDelete(company.id)}><FiTrash/></button>
-							</td>
+		<div id="page-company">
+			<div className="container">
+				<h3>EMPRESAS</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Código</th>
+							<th>Nome</th>
+							<th>Campo</th>
+							<th>Preço Médio</th>
+							<th>Qtd AÇÕES</th>
+							<th>%</th>
+							<th>DELETAR</th>
 						</tr>
-					))}
-				</tbody>
-			</table>
-		</div>
+					</thead>
 
-		<div className="container">
-			<h3>ADICIONAR EMPRESA</h3>
-			<form onSubmit={handleSubmit} className="submit-form">
-			<label>CÓDIGO: <input type="text" value={id} onChange={handleId} placeholder="somente números"/></label>
-			<label>NOME: <input type="text" value={name} onChange={handleName} placeholder="Digite o nome da Corretora"/></label>
-			<label>FIELD: <input type="text" value={field} onChange={handleField} placeholder="Digite o nome da Corretora"/></label>
-			<button type="submit" className="btn-sec">Adicionar</button>
-			</form>
+
+					<tbody>
+						{companies.map(company => (
+							<tr key={company.id}>
+								<td>{company.id}</td>
+								<td>{company.name}</td>
+								<td>{company.field}</td>
+								<td>{company.stock_average_price}</td>
+								<td>{company.total_stocks}</td>
+								<td>{(100*(company.total_stocks*company.stock_average_price/total)).toFixed(1)}%</td>
+								<td>
+									<button className="btn" onClick={() => handleDelete(company.id)}><FiTrash/></button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
+
+			<div className="container">
+				<h3>ADICIONAR EMPRESA</h3>
+				<form onSubmit={handleSubmit} className="submit-form">
+				<label>CÓDIGO: <input type="text" value={id} onChange={handleId} placeholder="somente números"/></label>
+				<label>NOME: <input type="text" value={name} onChange={handleName} placeholder="Digite o nome da Corretora"/></label>
+				<label>FIELD: <input type="text" value={field} onChange={handleField} placeholder="Digite o nome da Corretora"/></label>
+				<button type="submit" className="btn-sec">Adicionar</button>
+				</form>
+			</div>
 		</div>
 		</>
 	)

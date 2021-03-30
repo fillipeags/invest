@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { FiTrash } from "react-icons/fi";
 import Moment from 'moment';
 import api from '../../services/api';
-import '../../styles.css'
+import '../Transactions/styles.css'
 
 function Transactions(){
 
@@ -41,54 +41,56 @@ function Transactions(){
 
 	return (
 		<>
-		<div className="container">
-			<h3>TRANSAÇÕES</h3>
-			<table>
-				<thead>
-					<tr>
-						<th>Tipo</th>
-						<th>DATA</th>
-						<th>PREÇO</th>
-						<th>QTD</th>
-						<th>EMPRESA</th>
-						<th>CORRETORA</th>
-						<th>DELETAR</th>
+		<div id="page-transaction">
+			<div className="container">
+				<h3>TRANSAÇÕES</h3>
+				<table>
+					<thead>
+						<tr>
+							<th>Tipo</th>
+							<th>DATA</th>
+							<th>PREÇO</th>
+							<th>QTD</th>
+							<th>EMPRESA</th>
+							<th>CORRETORA</th>
+							<th>DELETAR</th>
 
-					</tr>
-				</thead>
-
-				<tbody>
-					{transactions.map(transaction => (
-						<tr key={transaction.id}>
-							<td>{transaction.type}</td>
-							<td>{Moment(transaction.date).format('lll')}</td>
-							<td>{transaction.price}</td>
-							<td>{transaction.quantity}</td>
-							<td>{transaction.id_company}</td>
-							<td>{transaction.id_broker}</td>
-							<td>
-								<button className="btn" onClick={() => handleDelete(transaction.id)}><FiTrash/></button>
-							</td>
 						</tr>
-					))}
-				</tbody>
-			</table>
-		</div>
+					</thead>
 
-		<div className="container">
-			<h3>NOVA TRANSAÇÃO</h3>
-			<form onSubmit={handleSubmit} className="submit-form ">
-				<label>Tipo: <input type="text" value={type} onChange={handleType}/></label>
+					<tbody>
+						{transactions.map(transaction => (
+							<tr key={transaction.id}>
+								<td>{transaction.type}</td>
+								<td>{Moment(transaction.date).format('lll')}</td>
+								<td>{transaction.price}</td>
+								<td>{transaction.quantity}</td>
+								<td>{transaction.id_company}</td>
+								<td>{transaction.id_broker}</td>
+								<td>
+									<button className="btn" onClick={() => handleDelete(transaction.id)}><FiTrash/></button>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
 
-				<label>Preço: <input type="number" value={price} onChange={handlePrice} /></label>
+			<div className="container">
+				<h3>NOVA TRANSAÇÃO</h3>
+				<form onSubmit={handleSubmit} className="submit-form ">
+					<label>Tipo: <input type="text" value={type} onChange={handleType}/></label>
 
-				<label>Quantidade: <input type="number" value={quantity} onChange={handleQuantity} /></label>
+					<label>Preço: <input type="number" value={price} onChange={handlePrice} /></label>
 
-				<label>Id da Corretora: <input type="text" value={id_broker} onChange={handleId_b} /></label>
+					<label>Quantidade: <input type="number" value={quantity} onChange={handleQuantity} /></label>
 
-				<label>Código da açao: <input type="text" value={id_company} onChange={handleId_c} /></label>
-			<button type="submit" className="btn-sec">Adicionar</button>
-			</form>
+					<label>Id da Corretora: <input type="text" value={id_broker} onChange={handleId_b} /></label>
+
+					<label>Código da açao: <input type="text" value={id_company} onChange={handleId_c} /></label>
+				<button type="submit" className="btn-sec">Adicionar</button>
+				</form>
+			</div>
 		</div>
 		</>
 	)

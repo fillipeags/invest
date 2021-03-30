@@ -1,0 +1,7 @@
+#page-company {
+	display: flex;
+}
+
+#page-company main {
+	flex: 1;
+}

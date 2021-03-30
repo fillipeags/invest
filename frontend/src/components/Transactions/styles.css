@@ -1,0 +1,7 @@
+#page-transaction {
+	display: flex;
+}
+
+#page-transaction main {
+	flex: 1;
+}
