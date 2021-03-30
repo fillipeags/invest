@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FiTrash } from "react-icons/fi";
-import Moment from 'moment';
+	import Moment from 'moment';
 import api from '../../services/api';
 import '../Transactions/styles.css'
 
@@ -34,10 +33,6 @@ function Transactions(){
 		api.get('/transactions').then(response => setTransactions(response.data))
 	}, [])
 
-	const handleDelete = (id) => {
-		api.delete(`transactions/${id}`).then(setTransactions(transactions.filter(transaction => transaction.id !== id)))
-	}
-
 
 	return (
 		<>
@@ -53,8 +48,6 @@ function Transactions(){
 							<th>QTD</th>
 							<th>EMPRESA</th>
 							<th>CORRETORA</th>
-							<th>DELETAR</th>
-
 						</tr>
 					</thead>
 
@@ -67,9 +60,7 @@ function Transactions(){
 								<td>{transaction.quantity}</td>
 								<td>{transaction.id_company}</td>
 								<td>{transaction.id_broker}</td>
-								<td>
-									<button className="btn" onClick={() => handleDelete(transaction.id)}><FiTrash/></button>
-								</td>
+
 							</tr>
 						))}
 					</tbody>
