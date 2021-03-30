@@ -78,14 +78,7 @@ function Transactions(){
 		<div className="container">
 			<h3>NOVA TRANSAÇÃO</h3>
 			<form onSubmit={handleSubmit} className="submit-form ">
-				<label>Tipo:
-					<select value={type} onChange={handleType}>
-						<option value="buy">Comprar</option>
-						<option value="sell">Vender</option>
-					</select>
-				</label>
-
-				<br/>
+				<label>Tipo: <input type="text" value={type} onChange={handleType}/></label>
 
 				<label>Preço: <input type="number" value={price} onChange={handlePrice} /></label>
 

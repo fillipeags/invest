@@ -79,7 +79,7 @@ function Companies(){
 			<form onSubmit={handleSubmit} className="submit-form">
 			<label>CÓDIGO: <input type="text" value={id} onChange={handleId} placeholder="somente números"/></label>
 			<label>NOME: <input type="text" value={name} onChange={handleName} placeholder="Digite o nome da Corretora"/></label>
-			<label>CAMPO: <input type="text" value={field} onChange={handleField} placeholder="Digite o nome da Corretora"/></label>
+			<label>FIELD: <input type="text" value={field} onChange={handleField} placeholder="Digite o nome da Corretora"/></label>
 			<button type="submit" className="btn-sec">Adicionar</button>
 			</form>
 		</div>
