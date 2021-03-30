@@ -1,18 +1,18 @@
 body {
 	box-sizing: border-box;
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	background-color: white;
+	align-items: stretch;
+	background: linear-gradient(225.34deg, #000000 0%, #6C13DD 101.17%);
 }
 
 .container {
 	background-color: white;
-	box-shadow: 7px 8px 16px -2px rgba(235, 235, 235, 1);
-	margin: 20px 20px;
-	padding: 24px 24px;
-	border-radius: 5px;
-	width: 100%;
+	box-shadow: 0px 12px 17px rgba(0, 0, 0, 0.14), 0px 5px 22px rgba(0, 0, 0, 0.12), 0px 7px 8px rgba(0, 0, 0, 0.2);
+	margin: 20px -150px;
+	padding: 24px 14px;
+	border-radius: 2px;
+	width: 60%;
+	margin-left: 50%;
 }
 
 table{
@@ -23,12 +23,12 @@ table{
 table > thead > tr {
 	background-color: #9466FF;
 	color: white;
-	height: 50px;
+	height: 40px;
 	text-transform: uppercase;
 }
 
 table > tbody td {
-	width: 10%;
+	width: 20%;
 	text-align: center;
 }
 
@@ -69,7 +69,7 @@ table > tbody td:last-child {
 	border: none;
 	font-size: 15px;
 	cursor: pointer;
-	margin-bottom: 20px;
+	margin-top: 20px;
 }
 
 .btn-sec:hover {
@@ -78,6 +78,16 @@ table > tbody td:last-child {
 
 }
 
+h3{
+	text-align: center;
+	padding: 0px;
+	margin-bottom: 10px;
+}
+
+label{
+	font-weight: 600;
+	font-size: 12px;
+}
 
 
 
@@ -88,8 +98,12 @@ table > tbody td:last-child {
 	width: 100%;
 }
 
-input {
-  width: 100%;
-	margin-bottom: 20px;
-
+.submit-form input{
+	width: 100%;
+	margin-bottom: 10px;
+	outline: none;
+	border: none;
+	box-shadow:0px 2px 2px rgb(0 0 0 / 0%), 0px 3px 4px rgb(0 0 0 / 12%), 0px 1px 5px rgb(0 0 0 / 20%);
+	border-radius: 5px;
+	height: 30px;
 }

@@ -75,7 +75,7 @@ function Transactions(){
 		</div>
 
 		<div className="container">
-			<form onSubmit={handleSubmit} className="submit-form">
+			<form onSubmit={handleSubmit} className="submit-form ">
 			<label>Tipo: <input type="text" value={type} onChange={handleType} /></label>
 			<label>Preço: <input type="number" value={price} onChange={handlePrice} /></label>
 			<label>Quantidade: <input type="number" value={quantity} onChange={handleQuantity} /></label>
