@@ -23,6 +23,12 @@ class TransactionsRepository {
       return { error: 'Você não tem açoes suficientes para vender' };
     }
 
+    const [totalStocks] = await db.query('SELECT SUM(total_stocks) FROM companies');
+    console.log(totalStocks);
+    console.log(total);
+    const percentage = (100 * (total.total_stocks / totalStocks.sum));
+    console.log(percentage);
+
     const [row] = await db.query(`
       INSERT INTO transactions (type, price , quantity, id_broker, id_company)
       VALUES ($1, $2, $3, $4, $5)
