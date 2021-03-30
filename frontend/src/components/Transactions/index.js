@@ -42,16 +42,17 @@ function Transactions(){
 	return (
 		<>
 		<div className="container">
+			<h3>TRANSAÇÕES</h3>
 			<table>
 				<thead>
 					<tr>
-						<th>Type</th>
-						<th>Date</th>
-						<th>Price</th>
-						<th>Quantity</th>
-						<th>Company</th>
-						<th>Broker</th>
-						<th>Action</th>
+						<th>Tipo</th>
+						<th>DATA</th>
+						<th>PREÇO</th>
+						<th>QTD</th>
+						<th>EMPRESA</th>
+						<th>CORRETORA</th>
+						<th>DELETAR</th>
 
 					</tr>
 				</thead>
@@ -75,12 +76,24 @@ function Transactions(){
 		</div>
 
 		<div className="container">
+			<h3>NOVA TRANSAÇÃO</h3>
 			<form onSubmit={handleSubmit} className="submit-form ">
-			<label>Tipo: <input type="text" value={type} onChange={handleType} /></label>
-			<label>Preço: <input type="number" value={price} onChange={handlePrice} /></label>
-			<label>Quantidade: <input type="number" value={quantity} onChange={handleQuantity} /></label>
-			<label>Id da Corretora: <input type="text" value={id_broker} onChange={handleId_b} /></label>
-			<label>Código da açao: <input type="text" value={id_company} onChange={handleId_c} /></label>
+				<label>Tipo:
+					<select value={type} onChange={handleType}>
+						<option value="buy">Comprar</option>
+						<option value="sell">Vender</option>
+					</select>
+				</label>
+
+				<br/>
+
+				<label>Preço: <input type="number" value={price} onChange={handlePrice} /></label>
+
+				<label>Quantidade: <input type="number" value={quantity} onChange={handleQuantity} /></label>
+
+				<label>Id da Corretora: <input type="text" value={id_broker} onChange={handleId_b} /></label>
+
+				<label>Código da açao: <input type="text" value={id_company} onChange={handleId_c} /></label>
 			<button type="submit" className="btn-sec">Adicionar</button>
 			</form>
 		</div>

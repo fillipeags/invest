@@ -38,7 +38,7 @@ function Brokers(){
 					<tr>
 						<th>CNPJ</th>
 						<th>Nome</th>
-						<th>AÇÕES</th>
+						<th>DELETAR</th>
 					</tr>
 				</thead>
 
@@ -62,9 +62,9 @@ function Brokers(){
 	  <div className="container">
 			<h3>ADICIONAR CORRETORA</h3>
 		<form onSubmit={handleSubmit} className="submit-form">
-				<label>CNPJ: <input type="text" value={id} onChange={handleId} placeholder="ex: 41612452345243"/></label>
-				<label>NOME: <input type="text" value={name} onChange={handleName} placeholder="ex: Rico Investimentos"/></label>
-				<button type="submit" className="btn-sec">Adicionar</button>
+			<label>CNPJ: <input type="text" value={id} onChange={handleId} placeholder="ex: 41612452345243"/></label>
+			<label>NOME: <input type="text" value={name} onChange={handleName} placeholder="ex: Rico Investimentos"/></label>
+			<button type="submit" className="btn-sec">Adicionar</button>
 			</form>
 		</div>
 		</>
