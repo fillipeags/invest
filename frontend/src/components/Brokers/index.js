@@ -4,8 +4,22 @@ import api from '../../services/api';
 import '../../styles.css'
 
 function Brokers(){
-
 	const [brokers, setBrokers] = useState([])
+
+	const [id, setId] = useState('');
+	const [name, setName] = useState('');
+
+	const handleId = (event) => { setId(event.target.value)};
+	const handleName = (event) => { setName(event.target.value)};
+
+	async function handleSubmit(e){
+		const data = {
+			id,name
+		};
+		await api.post('/brokers', data);
+		setBrokers([...brokers, data]);
+		e.preventDefault();
+	}
 
 	useEffect(() => {
 		api.get('/brokers').then(response => setBrokers(response.data))
@@ -16,6 +30,7 @@ function Brokers(){
 	}
 
 	return (
+		<>
 		<div className="container">
 			<table>
 				<thead>
@@ -41,19 +56,16 @@ function Brokers(){
 
 
 			<br/>
-
-			<table className="addBroker">
-				<tbody>
-					<tr>
-						<td><input type="text" /></td>
-						<td><input type="text"/></td>
-						<td><button className="btn-secondary">Adicionar</button></td>
-					</tr>
-				</tbody>
-			</table>
-
-
 		</div>
+
+	  <div className="container">
+		<form onSubmit={handleSubmit} className="submit-form">
+				<label>CNPJ: <input type="text" value={id} onChange={handleId} placeholder="somente números"/></label>
+				<label>NOME: <input type="text" value={name} onChange={handleName} placeholder="Digite o nome da Corretora"/></label>
+				<button type="submit" className="btn-sec">Adicionar</button>
+			</form>
+		</div>
+		</>
 	)
 }
 
