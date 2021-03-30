@@ -43,6 +43,7 @@ function Companies(){
 						<th>Field</th>
 						<th>Average Price</th>
 						<th>Stocks total</th>
+						<th>Percentual</th>
 						<th>Action</th>
 					</tr>
 				</thead>
@@ -55,6 +56,7 @@ function Companies(){
 							<td>{company.field}</td>
 							<td>{company.stock_average_price}</td>
 							<td>{company.total_stocks}</td>
+							{/* <td>{company.percentual}</td> */}
 							<td>
 								<button className="btn" onClick={() => handleDelete(company.id)}><FiTrash/></button>
 							</td>
