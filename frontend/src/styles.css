@@ -20,10 +20,10 @@ textarea {
 	background-color: white;
 	box-shadow: 0px 12px 17px rgba(0, 0, 0, 0.14),
 		0px 5px 22px rgba(0, 0, 0, 0.12), 0px 7px 8px rgba(0, 0, 0, 0.2);
-	margin: 10px;
+	margin: 10px -150px 10px 400px;
 	padding: 24px 14px;
 	border-radius: 10px;
-	width: 100%;
+	width: 30vw;
 	height: auto;
 }
 
@@ -99,10 +99,11 @@ label {
 	font-weight: 600;
 	font-size: 16px;
 	margin-right: 80%;
+	margin-left: 350px;
 }
 
 .submit-form input {
-	margin: 10px 20px 20px 0px;
+	margin: 10px 20px 20px 40%;
 	outline: none;
 	border: none;
 	box-shadow: 0px 2px 2px rgb(0 0 0 / 0%), 0px 3px 4px rgb(0 0 0 / 12%),

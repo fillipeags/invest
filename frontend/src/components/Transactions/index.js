@@ -79,7 +79,7 @@ function Transactions(){
 					<label>Id da Corretora: <input type="text" value={id_broker} onChange={handleId_b} /></label>
 
 					<label>Código da açao: <input type="text" value={id_company} onChange={handleId_c} /></label>
-				<button type="submit" className="btn-sec">Adicionar</button>
+					<button type="submit" className="btn-sec">Adicionar</button>
 				</form>
 			</div>
 		</div>
